@@ -6,12 +6,6 @@ public class Zoo {
 	private String location;
 	private Inventory inventory;
 
-	public Zoo(int zooId, String location, Inventory inventory) {
-		this.zooId = zooId;
-		this.location = location;
-		this.setInventory(inventory);
-	}
-
 	public String getLocation() {
 		return location;
 	}

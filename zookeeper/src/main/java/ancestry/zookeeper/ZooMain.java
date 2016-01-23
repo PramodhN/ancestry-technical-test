@@ -2,15 +2,24 @@ package ancestry.zookeeper;
 
 import java.util.Scanner;
 
+import ancestry.zookeeper.db.DBOperations;
+
 /**
  * Hello world!
  *
  */
 public class ZooMain {
+
+	private static int zooId;
+	private static Scanner in;
+	private static DBOperations operations;
+
 	public static void main(String[] args) {
-		Scanner in = new Scanner(System.in);
+		in = new Scanner(System.in);
 		boolean isExit = false;
 		int choice1, choice2;
+		System.out.print("Enter Zoo ID: ");
+		zooId = in.nextInt();
 		while (!isExit) {
 			System.out.println("Menu\n1. Update feed inventory\n2. Get stats\n3. Exit\nEnter your choice");
 			choice1 = in.nextInt();
@@ -41,6 +50,9 @@ public class ZooMain {
 	private static void getStats(int choice) {
 		switch (choice) {
 		case 1:
+			System.out.print("Enter feed shipment quantity: ");
+			double newQuantity = in.nextInt();
+
 			break;
 		case 2:
 			break;

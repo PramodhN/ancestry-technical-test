@@ -7,14 +7,6 @@ public class Animal {
 	private int feedingTime;
 	private double quantity;
 
-	public Animal(int animalId, int zooId, String species, int feedTime, double quantity) {
-		this.animalId = animalId;
-		this.zooId = zooId;
-		this.species = species;
-		this.setFeedingTime(feedTime);
-		this.quantity = quantity;
-	}
-
 	public int getAnimalId() {
 		return animalId;
 	}
