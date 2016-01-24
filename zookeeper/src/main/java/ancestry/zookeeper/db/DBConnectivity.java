@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Class for establishing database connectivity
+ * 
+ * @author Pramodh
+ *
+ */
 public class DBConnectivity {
 
 	private static Connection con = null;
@@ -15,7 +21,6 @@ public class DBConnectivity {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {

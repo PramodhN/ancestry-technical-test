@@ -5,7 +5,7 @@ import java.util.Scanner;
 import ancestry.zookeeper.db.DBOperations;
 
 /**
- * Hello world!
+ * Main class for implementation
  *
  */
 public class ZooMain {
@@ -18,7 +18,7 @@ public class ZooMain {
 		boolean isExit = false;
 		int choice1, choice2;
 		System.out.print("Enter Zoo ID: ");
-		zooId = in.nextInt();
+		zooId = in.nextInt(); // Get the zoo id. Acts as logging in to this zoo.
 		while (!isExit) {
 			System.out.println("Menu\n1. Update feed inventory\n2. Get stats\n3. Exit\nEnter your choice");
 			choice1 = in.nextInt();
