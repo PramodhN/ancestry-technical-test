@@ -58,8 +58,8 @@ public class ZooMain {
 			DBOperations.recordFeedTime(zooId, in);
 			break;
 		case 3:
+			DBOperations.replaceInventory(zooId);
 			break;
-
 		default:
 			System.out.println("Incorrect option chosen!");
 

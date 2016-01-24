@@ -22,14 +22,8 @@ public class DBOperations {
 
 	public static void addNewQuantity(int zooId, double newQuantity) {
 		String updateQuery = "UPDATE zoo SET new_inventory = new_inventory+" + newQuantity + " WHERE zooid = " + zooId;
-		Connection con = (Connection) DBConnectivity.getInstance();
-		try {
-			PreparedStatement preparedStmt = (PreparedStatement) con.prepareStatement(updateQuery);
-			preparedStmt.execute();
-			System.out.println("New shipment has been updated!");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		performUpdate(updateQuery);
+		System.out.println("New shipment has been updated!");
 	}
 
 	public static void recordFeedTime(int zooId, Scanner in) {
@@ -55,8 +49,24 @@ public class DBOperations {
 				PreparedStatement preparedStmt = (PreparedStatement) con.prepareStatement(updateQuery);
 				preparedStmt.execute();
 			}
+			System.out.println("Feed times recorded");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void replaceInventory(int zooId) {
+		String updateQuery = "UPDATE zoo SET running_inventory = new_inventory, new_inventory = 0 WHERE zooid = " + zooId;
+		performUpdate(updateQuery);
+		System.out.println("Inventory Updated");
+	}
+
+	private static void performUpdate(String updateQuery) {
+		Connection con = (Connection) DBConnectivity.getInstance();
+		try {
+			PreparedStatement preparedStmt = (PreparedStatement) con.prepareStatement(updateQuery);
+			preparedStmt.execute();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
