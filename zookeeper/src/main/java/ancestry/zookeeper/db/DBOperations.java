@@ -95,12 +95,19 @@ public class DBOperations {
 			String selectFinalAnimalsQuery = "";
 			if (isAboveOrBelow == 1) {
 				comparisonValue = average + (average * percent / 100);
-				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity >= " + comparisonValue;
+				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity >= " + comparisonValue + " AND zooid = " + zooId;
+				System.out.println("Species with feed above average and given percent:");
 			} else if (isAboveOrBelow == 2) {
 				comparisonValue = average - (average * percent / 100);
-				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity <= " + comparisonValue;
+				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity <= " + comparisonValue + " AND zooid = " + zooId;
+				System.out.println("Species with feed below average and given percent:");
 			} else
 				return;
+			rs = statement.executeQuery(selectFinalAnimalsQuery);
+
+			while (rs.next()) {
+				System.out.println(rs.getString(1));
+			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
