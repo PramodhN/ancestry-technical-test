@@ -30,8 +30,7 @@ public class ZooMain {
 				performInventoryUpdate(choice2);
 				break;
 			case 2:
-				System.out.println("Options\n1. How much was each individual animal fed per day on average?\n2. How many times per day are animals fed on average?"
-						+ " Group by species.\n3. How	much food is wasted per	zoo?\n4. Which species of animal at which zoos are being fed above/below "
+				System.out.println("Options\n1. How	much food is wasted per	zoo?\n2. Which species of animal at which zoos are being fed above/below "
 						+ "average(by species) by some percentage?\nEnter your choice");
 				choice2 = in.nextInt();
 				getStats(choice2);
@@ -69,12 +68,14 @@ public class ZooMain {
 	private static void getStats(int choice) {
 		switch (choice) {
 		case 1:
+			DBOperations.getFoodWastagePerZoo();
 			break;
 		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
+			System.out.println("Enter percentage value: ");
+			double percent = in.nextDouble();
+			System.out.println("Animals above (1) or below (2) this percent?:");
+			int isAboveOrBelow = in.nextInt();
+			DBOperations.getAnimalFeedStat(zooId, percent, isAboveOrBelow);
 			break;
 		default:
 			System.out.println("Incorrect option chosen!");

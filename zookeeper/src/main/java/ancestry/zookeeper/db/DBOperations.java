@@ -8,17 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ancestry.zookeeper.model.Animal;
-import ancestry.zookeeper.model.Zoo;
-
 public class DBOperations {
-	private Zoo zoo;
-	private Animal animal;
-
-	public DBOperations() {
-		zoo = new Zoo();
-		animal = new Animal();
-	}
 
 	public static void addNewQuantity(int zooId, double newQuantity) {
 		String updateQuery = "UPDATE zoo SET new_inventory = new_inventory+" + newQuantity + " WHERE zooid = " + zooId;
@@ -71,4 +61,49 @@ public class DBOperations {
 		}
 	}
 
+	public static void getFoodWastagePerZoo() {
+		String selectZooQuery = "SELECT * FROM zoo";
+		Connection con = (Connection) DBConnectivity.getInstance();
+		Statement statement;
+		try {
+			statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(selectZooQuery);
+			while (rs.next()) {
+				double wastage = rs.getDouble(4) - rs.getDouble(3);
+				System.out.println("Zoo: " + rs.getString(1) + ", Wastage: " + wastage);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void getAnimalFeedStat(int zooId, double percent, int isAboveOrBelow) {
+		String selectAnimalsQuery = "SELECT * FROM animal WHERE zooid = " + zooId;
+		Connection con = (Connection) DBConnectivity.getInstance();
+		Statement statement;
+		try {
+			statement = con.createStatement();
+			ResultSet rs = statement.executeQuery(selectAnimalsQuery);
+			double sum = 0.0;
+			int total = 0;
+			while (rs.next()) {
+				sum += rs.getDouble(5);
+				total++;
+			}
+			double average = sum / total;
+			double comparisonValue = 0.0;
+			String selectFinalAnimalsQuery = "";
+			if (isAboveOrBelow == 1) {
+				comparisonValue = average + (average * percent / 100);
+				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity >= " + comparisonValue;
+			} else if (isAboveOrBelow == 2) {
+				comparisonValue = average - (average * percent / 100);
+				selectFinalAnimalsQuery = "SELECT species FROM animal WHERE quantity <= " + comparisonValue;
+			} else
+				return;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
